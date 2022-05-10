@@ -1,2 +1,39 @@
 @use '/src/styles/constants/colors';
 @use '/src/styles/mixins/responsive';
+
+.searchPage {
+  .searchForm {
+    position: relative;
+    width: 90%;
+    height: 30px;
+    margin: 20px auto 0;
+    box-shadow: 0 6px 6px rgba(0, 0, 0, 20%);
+
+    input {
+      width: 90%;
+      height: 100%;
+      padding-left: 12px;
+
+      &::placeholder {
+        color: colors.$GRAYA;
+      }
+    }
+
+    button {
+      width: 10%;
+      height: 100%;
+      background: colors.$ORANGE;
+
+      .icon {
+        width: 15px;
+        height: 15px;
+      }
+    }
+  }
+
+  @include responsive.after(responsive.getMinBreakpoint(MD)) {
+    .searchForm {
+      width: 50%;
+    }
+  }
+}
