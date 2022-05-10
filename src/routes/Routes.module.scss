@@ -1,8 +1,23 @@
 @use '/src/styles/constants/colors';
+@use '/src/styles/mixins/responsive';
 
 .app {
+  position: relative;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #ff008a, #ff462b);
+
+  .page {
+    width: 100%;
+    margin: 0 auto;
+    background: colors.$WHITE;
+
+    @include responsive.after(responsive.getMinBreakpoint(MD)) {
+      max-width: 960px;
+      height: calc(100vh - 60px);
+    }
+  }
 }
