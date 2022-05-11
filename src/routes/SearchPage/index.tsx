@@ -34,13 +34,16 @@ const SearchPage = () => {
 
   return (
     <>
-      <header className={styles.searchForm}>
-        <form onSubmit={handleSubmit}>
-          <input type='text' placeholder='제목 검색' onChange={handleSearchWordChange} />
-          <button type='submit'>
-            <SearchIcon className={styles.icon} />
-          </button>
-        </form>
+      <header className={styles.header}>
+        <div />
+        <div className={styles.searchForm}>
+          <form onSubmit={handleSubmit}>
+            <input type='text' placeholder='제목 검색' onChange={handleSearchWordChange} />
+            <button type='submit'>
+              <SearchIcon className={styles.icon} />
+            </button>
+          </form>
+        </div>
       </header>
       <section className={styles.searchList}>
         {!movieList.length && <span className={styles.noResult}>{NO_RESULT}</span>}
