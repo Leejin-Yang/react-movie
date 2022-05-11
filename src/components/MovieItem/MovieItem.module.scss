@@ -1,6 +1,6 @@
 .movieItem {
   display: grid;
-  grid-template-columns: minmax(120px, auto) 1fr;
+  grid-template-columns: 120px 1fr;
   align-items: center;
   height: 180px;
   padding: 0 20px;
@@ -9,18 +9,21 @@
   border-radius: 30px;
 
   .moviePoster {
+    max-width: 120px;
     height: 150px;
+    object-fit: contain;
   }
 
   .movieInfo {
     display: grid;
     grid-template-rows: minmax(70%, auto) 1fr 1fr;
+    align-items: flex-end;
     height: 150px;
     margin-left: 20px;
 
     span:first-of-type {
       align-self: flex-start;
-      font-size: 20px;
+      font-size: 18px;
       font-weight: 600;
     }
   }
