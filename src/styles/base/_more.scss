@@ -21,6 +21,11 @@
   }
 }
 
+html body {
+  height: 100vh;
+  height: -webkit-fill-available;
+}
+
 img {
   border: 0;
 }
