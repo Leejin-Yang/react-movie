@@ -46,34 +46,6 @@
     font-weight: 600;
     text-align: center;
   }
-
-  li {
-    display: grid;
-    grid-template-columns: minmax(120px, auto) 1fr;
-    align-items: center;
-    height: 180px;
-    padding: 0 20px;
-    margin-bottom: 10px;
-    background: blue;
-    border-radius: 30px;
-
-    .moviePoster {
-      height: 150px;
-    }
-
-    .movieInfo {
-      display: grid;
-      grid-template-rows: minmax(70%, auto) 1fr 1fr;
-      height: 150px;
-      margin-left: 20px;
-
-      span:first-of-type {
-        align-self: flex-start;
-        font-size: 20px;
-        font-weight: 600;
-      }
-    }
-  }
 }
 
 @include responsive.after(responsive.getMinBreakpoint(MD)) {

@@ -1,2 +1,19 @@
 @use '/src/styles/constants/colors';
-@use '/src/styles/mixins/responsive';
+
+.title {
+  width: 90%;
+  height: 30px;
+  margin: 20px auto 0;
+  line-height: 30px;
+
+  h1 {
+    font-size: 18px;
+    font-weight: 600;
+  }
+}
+
+.favoritesList {
+  width: 95%;
+  height: 100%;
+  margin: 30px auto 0;
+}
