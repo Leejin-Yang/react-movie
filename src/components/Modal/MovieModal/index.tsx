@@ -1,5 +1,7 @@
+import { useSetRecoilState } from 'recoil';
 import styles from './MovieModal.module.scss';
 
+import { favoriteMovieListState } from 'states/movie';
 import { IMovieList } from 'types/movie';
 import { handleImgError } from 'utils/image';
 import DEFAULT_IMG from 'assets/img/default-movie.png';
@@ -9,11 +11,21 @@ interface Props {
   onClose: () => void;
 }
 
-const ADD_FAVORITES = '즐겨찾기 추가';
+const ADD_FAVORITES = '즐겨찾기';
 const CANCEL = '취소';
 
 const MovieModal = ({ movie, onClose }: Props) => {
-  const { Poster, Title, Year, Type } = movie;
+  const { Poster, Title, Year, Type, imdbID } = movie;
+  const setFavoriteMovie = useSetRecoilState(favoriteMovieListState);
+
+  const handleAddButton = () => {
+    setFavoriteMovie((prev) => {
+      if (prev.find((item) => item.imdbID === imdbID)) return prev;
+
+      return [...prev, movie];
+    });
+    onClose();
+  };
 
   return (
     <>
@@ -42,7 +54,9 @@ const MovieModal = ({ movie, onClose }: Props) => {
             </div>
           </section>
           <section className={styles.buttons}>
-            <button type='button'>{ADD_FAVORITES}</button>
+            <button type='button' onClick={handleAddButton}>
+              {ADD_FAVORITES}
+            </button>
             <button type='button' onClick={onClose}>
               {CANCEL}
             </button>

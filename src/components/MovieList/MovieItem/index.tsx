@@ -1,11 +1,15 @@
 import { useState } from 'react';
+import { useRecoilValue } from 'recoil';
 import styles from './MovieItem.module.scss';
 
 import ModalPortal from 'components/Modal/modalPortal';
 import { MovieModal } from 'components/Modal';
 
+import { cx } from 'styles';
+import { favoriteMovieListState } from 'states/movie';
 import { IMovieList } from 'types/movie.d';
 import { handleImgError } from 'utils/image';
+import { FavoriteIcon } from 'assets/svgs';
 import DEFAULT_IMG from 'assets/img/default-movie.png';
 
 interface Props {
@@ -13,8 +17,13 @@ interface Props {
 }
 
 const MovieItem = ({ movie }: Props) => {
-  const { Poster, Title, Year, Type } = movie;
+  const { Poster, Title, Year, Type, imdbID } = movie;
   const [movieModal, setMovieModal] = useState<boolean>(false);
+  const favoriteMovieList = useRecoilValue(favoriteMovieListState);
+
+  const isFavorite = () => {
+    return favoriteMovieList.find((item) => item.imdbID === imdbID);
+  };
 
   const handleModalOpen = () => {
     setMovieModal(true);
@@ -39,6 +48,7 @@ const MovieItem = ({ movie }: Props) => {
             <span>{Year}</span>
             <span>{Type}</span>
           </div>
+          <FavoriteIcon className={cx({ [styles.favorite]: isFavorite() })} />
         </button>
       </li>
       {movieModal && (

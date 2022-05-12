@@ -1,3 +1,5 @@
+@use '/src/styles/constants/colors';
+
 .movieItem {
   position: relative;
   height: 180px;
@@ -7,7 +9,7 @@
 
   button {
     display: grid;
-    grid-template-columns: 102px 1fr;
+    grid-template-columns: 102px 180px 1fr;
     align-items: center;
     width: 100%;
     height: 100%;
@@ -35,6 +37,14 @@
         font-weight: 600;
         text-align: start;
       }
+    }
+
+    svg {
+      justify-self: flex-end;
+    }
+
+    .favorite {
+      fill: colors.$YELLOW;
     }
   }
 }

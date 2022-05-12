@@ -10,3 +10,8 @@ export const pageNumberState = atom<number>({
   key: '#pageNumberState',
   default: 1,
 });
+
+export const favoriteMovieListState = atom<IMovieList[]>({
+  key: '#favoriteMovieListState',
+  default: [],
+});

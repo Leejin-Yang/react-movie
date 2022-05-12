@@ -51,7 +51,6 @@
       max-width: 200px;
       height: 200px;
       object-fit: contain;
-      background: red;
     }
 
     .movieInfo {
@@ -61,6 +60,7 @@
       height: 40px;
 
       p {
+        font-size: 12px;
         line-height: 20px;
         text-align: center;
 
