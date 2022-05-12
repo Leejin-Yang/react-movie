@@ -1,7 +1,7 @@
 import styles from './FavoritesPage.module.scss';
 
 import { MOCK_DATA } from 'assets/data/mock';
-import MovieItem from 'components/MovieItem';
+import MovieItem from 'components/MovieList/MovieItem';
 
 const PAGE_TITLE = '내 즐겨찾기';
 

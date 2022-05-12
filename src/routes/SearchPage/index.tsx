@@ -1,53 +1,72 @@
-import { useState, FormEvent, ChangeEvent } from 'react';
-import { useRecoilState, useResetRecoilState } from 'recoil';
+import { useCallback, useEffect, useState } from 'react';
+import { useRecoilState } from 'recoil';
+import { useSearchParams } from 'react-router-dom';
+import { useMount, useUpdateEffect } from 'react-use';
+import { useInView } from 'react-intersection-observer';
 import styles from './SearchPage.module.scss';
 
-import MovieItem from 'components/MovieItem';
-import { SearchIcon } from 'assets/svgs';
+import SearchForm from 'components/SearchForm';
+import MovieList from 'components/MovieList';
+import Spinner from 'components/Spinner';
 import { getMovieListApi } from 'services/movie';
-import { movieListState } from 'states/movie';
+import { movieListState, pageNumberState } from 'states/movie';
 
 const NO_RESULT = '검색 결과가 없습니다.';
 
 const SearchPage = () => {
-  const [searchWord, setSearchWord] = useState<string>('');
+  const [isLoading, setIsLoding] = useState<boolean>(false);
   const [movieList, setMovieList] = useRecoilState(movieListState);
-  const resetMovieList = useResetRecoilState(movieListState);
+  const [pageNumber, setPageNumber] = useRecoilState(pageNumberState);
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
-    e.preventDefault();
-    getMovieListApi({ s: searchWord, page: 1 })
+  const [searchParams] = useSearchParams();
+  const [ref, inView] = useInView();
+
+  const currentSearch = searchParams.get('s');
+
+  const getMovieList = useCallback(async () => {
+    if (!currentSearch) return;
+
+    setIsLoding(true);
+    await getMovieListApi({ s: currentSearch, page: pageNumber })
       .then((res) => res.data)
       .then((data) => {
         if (data.Response === 'False') {
-          resetMovieList();
+          ref(null);
           return;
         }
 
-        setMovieList(data.Search);
+        setMovieList((prev) => [...prev, ...data.Search]);
       });
-  };
+    setIsLoding(false);
+  }, [currentSearch, pageNumber, ref, setMovieList]);
 
-  const handleSearchWordChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setSearchWord(e.currentTarget.value);
-  };
+  useMount(() => {
+    getMovieList();
+  });
+
+  useEffect(() => {
+    if (inView) {
+      setPageNumber((prev) => prev + 1);
+    }
+  }, [inView, setPageNumber]);
+
+  useUpdateEffect(() => {
+    getMovieList();
+  }, [getMovieList]);
 
   return (
     <>
       <header className={styles.header}>
         <div />
         <div className={styles.searchForm}>
-          <form onSubmit={handleSubmit}>
-            <input type='text' placeholder='제목 검색' onChange={handleSearchWordChange} />
-            <button type='submit'>
-              <SearchIcon className={styles.icon} />
-            </button>
-          </form>
+          <SearchForm />
         </div>
       </header>
       <section className={styles.searchList}>
-        {!movieList.length && <span className={styles.noResult}>{NO_RESULT}</span>}
-        <ul>{movieList && movieList.map((movie) => <MovieItem key={movie.imdbID} movie={movie} />)}</ul>
+        {!movieList.length && !isLoading && <span className={styles.noResult}>{NO_RESULT}</span>}
+        {movieList && <MovieList movieList={movieList} />}
+        {isLoading && <Spinner />}
+        {currentSearch && movieList.length !== 0 && <div ref={ref} />}
       </section>
     </>
   );
