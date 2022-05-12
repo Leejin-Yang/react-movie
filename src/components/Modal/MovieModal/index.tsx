@@ -1,4 +1,4 @@
-import { useSetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 import styles from './MovieModal.module.scss';
 
 import { favoriteMovieListState } from 'states/movie';
@@ -12,18 +12,38 @@ interface Props {
 }
 
 const ADD_FAVORITES = '즐겨찾기';
+const DELETE_FAVORITES = '즐겨찾기 제거';
 const CANCEL = '취소';
 
 const MovieModal = ({ movie, onClose }: Props) => {
   const { Poster, Title, Year, Type, imdbID } = movie;
-  const setFavoriteMovie = useSetRecoilState(favoriteMovieListState);
+  const [favoriteMovieList, setFavoriteMovieList] = useRecoilState(favoriteMovieListState);
 
-  const handleAddButton = () => {
-    setFavoriteMovie((prev) => {
+  const isFavorite = () => {
+    return favoriteMovieList.find((item) => item.imdbID === imdbID);
+  };
+
+  const addMovie = () => {
+    setFavoriteMovieList((prev) => {
       if (prev.find((item) => item.imdbID === imdbID)) return prev;
 
       return [...prev, movie];
     });
+  };
+
+  const deleteMovie = () => {
+    setFavoriteMovieList((prev) => prev.filter((item) => item.imdbID !== imdbID));
+  };
+
+  const handleFavoriteButton = (e: { currentTarget: { name: string } }) => {
+    const { name } = e.currentTarget;
+
+    if (name === ADD_FAVORITES) {
+      addMovie();
+    } else if (name === DELETE_FAVORITES) {
+      deleteMovie();
+    }
+
     onClose();
   };
 
@@ -54,10 +74,10 @@ const MovieModal = ({ movie, onClose }: Props) => {
             </div>
           </section>
           <section className={styles.buttons}>
-            <button type='button' onClick={handleAddButton}>
-              {ADD_FAVORITES}
+            <button type='button' name={isFavorite() ? DELETE_FAVORITES : ADD_FAVORITES} onClick={handleFavoriteButton}>
+              {isFavorite() ? DELETE_FAVORITES : ADD_FAVORITES}
             </button>
-            <button type='button' onClick={onClose}>
+            <button type='button' name={CANCEL} onClick={onClose}>
               {CANCEL}
             </button>
           </section>
