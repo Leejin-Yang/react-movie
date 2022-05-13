@@ -2,18 +2,27 @@
 
 .title {
   width: 90%;
-  height: 30px;
-  margin: 20px auto 0;
-  line-height: 30px;
+  margin: 0 auto;
 
   h1 {
+    height: 46px;
+    margin-top: 14px;
     font-size: 18px;
     font-weight: 600;
+    line-height: 46px;
   }
 }
 
 .favoritesList {
   width: 95%;
   height: 100%;
-  margin: 30px auto 0;
+  margin: 20px auto 0;
+
+  .noFavorite {
+    display: block;
+    margin-top: 60px;
+    font-size: 18px;
+    font-weight: 600;
+    text-align: center;
+  }
 }

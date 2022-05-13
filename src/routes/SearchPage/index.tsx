@@ -6,7 +6,7 @@ import { useInView } from 'react-intersection-observer';
 import styles from './SearchPage.module.scss';
 
 import SearchForm from 'components/SearchForm';
-import MovieList from 'components/MovieList';
+import MovieItem from 'components/MovieItem';
 import Spinner from 'components/Spinner';
 import { getMovieListApi } from 'services/movie';
 import { movieListState, pageNumberState } from 'states/movie';
@@ -64,7 +64,15 @@ const SearchPage = () => {
       </header>
       <section className={styles.searchList}>
         {!movieList.length && !isLoading && <span className={styles.noResult}>{NO_RESULT}</span>}
-        {movieList && <MovieList movieList={movieList} />}
+        {movieList && (
+          <ul>
+            {movieList.map((movie, index) => {
+              const key = `${movie.imdbID}-${index}`;
+
+              return <MovieItem key={key} movie={movie} />;
+            })}
+          </ul>
+        )}
         {isLoading && <Spinner />}
         {currentSearch && movieList.length !== 0 && <div ref={ref} />}
       </section>

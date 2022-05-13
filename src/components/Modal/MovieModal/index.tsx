@@ -4,8 +4,6 @@ import styles from './MovieModal.module.scss';
 import { favoriteMovieListState } from 'states/movie';
 import { IMovieList } from 'types/movie.d';
 import { FAVORITE_MOVIE_KEY, setLocalStorage } from 'services/store';
-import { handleImgError } from 'utils/image';
-import DEFAULT_IMG from 'assets/img/default-movie.png';
 
 interface Props {
   movie: IMovieList;
@@ -55,13 +53,15 @@ const MovieModal = ({ movie, onClose }: Props) => {
       <button type='button' className={styles.background} onClick={onClose} aria-label='hidden' />
       <div className={styles.modalContainer}>
         <main className={styles.modal}>
-          <section className={styles.movie}>
-            <img
-              src={Poster}
-              alt={Title}
-              className={styles.moviePoster}
-              onError={(e) => handleImgError(e, DEFAULT_IMG)}
-            />
+          <section
+            className={styles.movie}
+            style={{
+              background: `linear-gradient(to bottom, rgba(0, 0, 0, 0) 39%, rgba(0, 0, 0, 0) 41%, rgba(0, 0, 0, 65%) 100%), url(${Poster}), #1c1c1c`,
+              backgroundSize: '100%, cover',
+              backgroundPosition: 'center, center',
+              backgroundRepeat: 'no-repeat',
+            }}
+          >
             <p className={styles.movieTitle}>{Title}</p>
             <div className={styles.movieInfo}>
               <p>

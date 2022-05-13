@@ -1,10 +1,10 @@
 import { useState, FormEvent, ChangeEvent } from 'react';
 import { useResetRecoilState } from 'recoil';
 import { useSearchParams } from 'react-router-dom';
-import styles from './SearchForm.module.scss';
 
 import { movieListState, pageNumberState } from 'states/movie';
-import { SearchIcon } from 'assets/svgs';
+
+const PLACEHOLDER_TITLE = '👀   제목 검색   👀 ';
 
 const SearchForm = () => {
   const [searchWord, setSearchWord] = useState<string>('');
@@ -30,10 +30,7 @@ const SearchForm = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <input type='text' placeholder='제목 검색' onChange={handleChange} />
-      <button type='submit'>
-        <SearchIcon className={styles.icon} />
-      </button>
+      <input type='text' placeholder={PLACEHOLDER_TITLE} onChange={handleChange} />
     </form>
   );
 };
