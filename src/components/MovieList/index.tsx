@@ -1,5 +1,5 @@
 import MovieItem from './MovieItem';
-import { IMovieList } from 'types/movie';
+import { IMovieList } from 'types/movie.d';
 
 interface Props {
   movieList: IMovieList[];

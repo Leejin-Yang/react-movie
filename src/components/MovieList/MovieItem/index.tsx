@@ -1,12 +1,11 @@
 import { useState } from 'react';
-import { useRecoilValue } from 'recoil';
 import styles from './MovieItem.module.scss';
 
 import ModalPortal from 'components/Modal/modalPortal';
 import { MovieModal } from 'components/Modal';
 
 import { cx } from 'styles';
-import { favoriteMovieListState } from 'states/movie';
+import { FAVORITE_MOVIE_KEY, getLocalStorage } from 'services/store';
 import { IMovieList } from 'types/movie.d';
 import { handleImgError } from 'utils/image';
 import { FavoriteIcon } from 'assets/svgs';
@@ -19,10 +18,10 @@ interface Props {
 const MovieItem = ({ movie }: Props) => {
   const { Poster, Title, Year, Type, imdbID } = movie;
   const [movieModal, setMovieModal] = useState<boolean>(false);
-  const favoriteMovieList = useRecoilValue(favoriteMovieListState);
+  const favoriteMovieList = getLocalStorage(FAVORITE_MOVIE_KEY) || [];
 
   const isFavorite = () => {
-    return favoriteMovieList.find((item) => item.imdbID === imdbID);
+    return favoriteMovieList.find((item: IMovieList) => item.imdbID === imdbID);
   };
 
   const handleModalOpen = () => {
@@ -43,11 +42,11 @@ const MovieItem = ({ movie }: Props) => {
             className={styles.moviePoster}
             onError={(e) => handleImgError(e, DEFAULT_IMG)}
           />
-          <div className={styles.movieInfo}>
-            <span>{Title}</span>
-            <span>{Year}</span>
-            <span>{Type}</span>
-          </div>
+          <dl className={styles.movieInfo}>
+            <dt>{Title}</dt>
+            <dd>{Year}</dd>
+            <dd>{Type}</dd>
+          </dl>
           <FavoriteIcon className={cx({ [styles.favorite]: isFavorite() })} />
         </button>
       </li>

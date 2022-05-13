@@ -2,7 +2,8 @@ import { useRecoilState } from 'recoil';
 import styles from './MovieModal.module.scss';
 
 import { favoriteMovieListState } from 'states/movie';
-import { IMovieList } from 'types/movie';
+import { IMovieList } from 'types/movie.d';
+import { FAVORITE_MOVIE_KEY, setLocalStorage } from 'services/store';
 import { handleImgError } from 'utils/image';
 import DEFAULT_IMG from 'assets/img/default-movie.png';
 
@@ -24,18 +25,20 @@ const MovieModal = ({ movie, onClose }: Props) => {
   };
 
   const addMovie = () => {
-    setFavoriteMovieList((prev) => {
-      if (prev.find((item) => item.imdbID === imdbID)) return prev;
+    const newFavorites = isFavorite() ? favoriteMovieList : [...favoriteMovieList, movie];
 
-      return [...prev, movie];
-    });
+    setFavoriteMovieList(newFavorites);
+    setLocalStorage(FAVORITE_MOVIE_KEY, newFavorites);
   };
 
   const deleteMovie = () => {
-    setFavoriteMovieList((prev) => prev.filter((item) => item.imdbID !== imdbID));
+    const newFavorites = favoriteMovieList.filter((item) => item.imdbID !== imdbID);
+
+    setFavoriteMovieList(newFavorites);
+    setLocalStorage(FAVORITE_MOVIE_KEY, newFavorites);
   };
 
-  const handleFavoriteButton = (e: { currentTarget: { name: string } }) => {
+  const handleFavoriteButton = async (e: { currentTarget: { name: string } }) => {
     const { name } = e.currentTarget;
 
     if (name === ADD_FAVORITES) {
