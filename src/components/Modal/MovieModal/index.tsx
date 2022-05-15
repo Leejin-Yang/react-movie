@@ -36,7 +36,7 @@ export const MovieModal = ({ movie, onClose }: Props) => {
     setLocalStorage(FAVORITE_MOVIE_KEY, newFavorites);
   };
 
-  const handleFavoriteButton = async (e: { currentTarget: { name: string } }) => {
+  const handleFavoriteButton = (e: { currentTarget: { name: string } }) => {
     const { name } = e.currentTarget;
 
     if (name === ADD_FAVORITES) {

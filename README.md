@@ -1,6 +1,19 @@
-# 원티드 프리온보딩 그립컴퍼니 과제
+<div align="center">
 
-검색, 즐겨찾기를 등록 할 수 있는 영화 앱
+  ### 🎬 검색, 즐겨찾기를 등록 할 수 있는 영화 앱 <br>
+  ### 🍿 [Movie App](https://leejin-yang.github.io/wanted_pre_onboarding_grip/)
+
+</div>
+
+<br>
+
+<div align="center">
+
+|영화 검색|즐겨찾기|
+|:-:|:-:|
+|![영화 검색](https://user-images.githubusercontent.com/78616893/168457132-ea97e644-b0ae-4b83-bd30-c25d2e1f8c92.gif)|![즐겨찾기](https://user-images.githubusercontent.com/78616893/168457219-2cb7b928-aac6-41b6-bece-1ae0e1dac8b1.gif)|
+
+</div>
 
 <br>
 
