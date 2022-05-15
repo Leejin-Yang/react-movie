@@ -34,22 +34,15 @@ const MovieItem = ({ movie }: Props) => {
 
   return (
     <>
-      <li className={styles.movieItem}>
-        <button type='button' onClick={handleModalOpen}>
-          <img
-            src={Poster}
-            alt={Title}
-            className={styles.moviePoster}
-            onError={(e) => handleImgError(e, DEFAULT_IMG)}
-          />
-          <dl className={styles.movieInfo}>
-            <dt>{Title}</dt>
-            <dd>{Year}</dd>
-            <dd>{Type}</dd>
-          </dl>
-          <FavoriteIcon className={cx({ [styles.favorite]: isFavorite() })} />
-        </button>
-      </li>
+      <button type='button' onClick={handleModalOpen} aria-label='hidden'>
+        <img src={Poster} alt={Title} className={styles.moviePoster} onError={(e) => handleImgError(e, DEFAULT_IMG)} />
+        <dl className={styles.movieInfo}>
+          <dt>{Title}</dt>
+          <dd>{Year}</dd>
+          <dd>{Type}</dd>
+        </dl>
+        <FavoriteIcon className={cx({ [styles.favorite]: isFavorite() })} />
+      </button>
       {movieModal && (
         <ModalPortal>
           <MovieModal onClose={handleModalClose} movie={movie} />

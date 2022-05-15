@@ -14,7 +14,7 @@ const ADD_FAVORITES = '즐겨찾기';
 const DELETE_FAVORITES = '즐겨찾기 제거';
 const CANCEL = '취소';
 
-const MovieModal = ({ movie, onClose }: Props) => {
+export const MovieModal = ({ movie, onClose }: Props) => {
   const { Poster, Title, Year, Type, imdbID } = movie;
   const [favoriteMovieList, setFavoriteMovieList] = useRecoilState(favoriteMovieListState);
 
@@ -89,5 +89,3 @@ const MovieModal = ({ movie, onClose }: Props) => {
     </>
   );
 };
-
-export default MovieModal;

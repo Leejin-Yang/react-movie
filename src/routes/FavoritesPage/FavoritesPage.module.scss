@@ -25,4 +25,14 @@
     font-weight: 600;
     text-align: center;
   }
+
+  .movieItem {
+    position: relative;
+    height: 180px;
+    margin-bottom: 10px;
+    background: colors.$NAV;
+    border: 1px solid colors.$BORDER;
+    border-radius: 10px;
+    box-shadow: 0 6px 6px colors.$SHADOW;
+  }
 }

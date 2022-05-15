@@ -3,14 +3,16 @@ import { useMount } from 'react-use';
 import styles from './FavoritesPage.module.scss';
 
 import MovieItem from 'components/MovieItem';
+import useDragDrop from 'hooks/useDragDrop';
 import { favoriteMovieListState } from 'states/movie';
 import { FAVORITE_MOVIE_KEY, getLocalStorage } from 'services/store';
 
-const PAGE_TITLE = '내 즐겨찾기 🍿';
+const PAGE_TITLE = '내 즐겨찾기';
 const NO_FAVORITE = '내 즐겨찾기를 등록해보세요 🍿';
 
 const FavoritesPage = () => {
   const [favoriteMovieList, setFavoriteMovieList] = useRecoilState(favoriteMovieListState);
+  const { handleDragOver, handleDragStart, handleDragEnd, handleDrop } = useDragDrop();
 
   useMount(() => {
     setFavoriteMovieList((prev) => {
@@ -32,9 +34,22 @@ const FavoritesPage = () => {
         {favoriteMovieList && (
           <ul>
             {favoriteMovieList.map((movie, index) => {
-              const key = `${movie.imdbID}-${index}`;
+              const key = `fav-list-${movie.imdbID}-${index}`;
 
-              return <MovieItem key={key} movie={movie} />;
+              return (
+                <li
+                  key={key}
+                  data-position={index}
+                  className={styles.movieItem}
+                  draggable
+                  onDragOver={handleDragOver}
+                  onDragStart={handleDragStart}
+                  onDragEnd={handleDragEnd}
+                  onDrop={handleDrop}
+                >
+                  <MovieItem movie={movie} />
+                </li>
+              );
             })}
           </ul>
         )}

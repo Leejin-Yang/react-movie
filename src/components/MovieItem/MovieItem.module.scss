@@ -1,62 +1,52 @@
 @use '/src/styles/constants/colors';
 
-.movieItem {
+button {
   position: relative;
-  height: 180px;
-  margin-bottom: 10px;
-  background: colors.$NAV;
-  border: 1px solid colors.$BORDER;
-  border-radius: 10px;
-  box-shadow: 0 6px 6px colors.$SHADOW;
+  display: grid;
+  grid-template-columns: 105px 4fr 1fr;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 0 15px;
+  background: none;
+  border-radius: 30px;
 
-  button {
-    display: grid;
-    grid-template-columns: 105px 4fr 1fr;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    padding: 0 15px;
-    background: none;
-    border-radius: 30px;
+  .moviePoster {
+    max-width: 102px;
+    height: 150px;
+    object-fit: contain;
+    border-radius: 6px;
+    box-shadow: 0 0 4px 4px colors.$SHADOW;
+  }
 
-    .moviePoster {
-      max-width: 102px;
-      height: 150px;
-      object-fit: contain;
-      border-radius: 6px;
-      box-shadow: 0 0 4px 4px colors.$SHADOW;
+  .movieInfo {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    height: 150px;
+    margin-left: 20px;
+
+    dt {
+      align-self: flex-start;
+      height: 65%;
+      overflow: scroll;
+      font-size: 18px;
+      font-weight: 600;
+      text-align: start;
     }
 
-    .movieInfo {
-      display: inline-flex;
-      flex-direction: column;
-      align-items: flex-start;
-      justify-content: space-between;
-      height: 150px;
-      margin-left: 20px;
-
-      dt {
-        align-self: flex-start;
-        height: 100%;
-        height: 65%;
-        overflow: scroll;
-        font-size: 18px;
-        font-weight: 600;
-        text-align: start;
-      }
-
-      dd {
-        text-transform: capitalize;
-      }
+    dd {
+      text-transform: capitalize;
     }
+  }
 
-    svg {
-      justify-self: flex-end;
-    }
+  svg {
+    justify-self: flex-end;
+  }
 
-    .favorite {
-      color: colors.$POINT_YELLOW;
-      fill: colors.$POINT_YELLOW;
-    }
+  .favorite {
+    color: colors.$POINT_YELLOW;
+    fill: colors.$POINT_YELLOW;
   }
 }

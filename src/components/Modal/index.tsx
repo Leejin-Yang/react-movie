@@ -1,3 +1,1 @@
-import MovieModal from './MovieModal';
-
-export { MovieModal };
+export { MovieModal } from './MovieModal';

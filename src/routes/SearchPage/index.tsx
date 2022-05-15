@@ -67,9 +67,13 @@ const SearchPage = () => {
         {movieList && (
           <ul>
             {movieList.map((movie, index) => {
-              const key = `${movie.imdbID}-${index}`;
+              const key = `search-list-${movie.imdbID}-${index}`;
 
-              return <MovieItem key={key} movie={movie} />;
+              return (
+                <li key={key} className={styles.movieItem}>
+                  <MovieItem movie={movie} />
+                </li>
+              );
             })}
           </ul>
         )}
