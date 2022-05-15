@@ -4,7 +4,7 @@ import { useSearchParams } from 'react-router-dom';
 
 import { movieListState, pageNumberState } from 'states/movie';
 
-const PLACEHOLDER_TITLE = '👀   제목 검색   👀 ';
+const PLACEHOLDER_TITLE = '👀   영화 제목 검색   👀 ';
 
 const SearchForm = () => {
   const [searchWord, setSearchWord] = useState<string>('');
