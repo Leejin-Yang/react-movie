@@ -11,7 +11,7 @@
 
 |영화 검색|즐겨찾기|
 |:-:|:-:|
-|![영화 검색](https://user-images.githubusercontent.com/78616893/168457132-ea97e644-b0ae-4b83-bd30-c25d2e1f8c92.gif)|![즐겨찾기](https://user-images.githubusercontent.com/78616893/168457219-2cb7b928-aac6-41b6-bece-1ae0e1dac8b1.gif)|
+|![영화 검색](https://user-images.githubusercontent.com/78616893/168457728-b527c484-aed8-471c-b700-2222bfc2656e.gif)|![즐겨찾기](https://user-images.githubusercontent.com/78616893/168457711-8a5dcea2-b8ee-441c-af2d-ba65a726302d.gif)|
 
 </div>
 
