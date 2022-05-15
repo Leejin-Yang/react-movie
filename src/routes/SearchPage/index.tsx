@@ -12,9 +12,12 @@ import { getMovieListApi } from 'services/movie';
 import { movieListState, pageNumberState } from 'states/movie';
 
 const NO_RESULT = '검색 결과가 없습니다.';
+const NO_SEARCH_WORD = '검색어를 입력해주세요.';
+const TOO_MANY_RESULT = '검색 결과가 많습니다.';
 
 const SearchPage = () => {
   const [isLoading, setIsLoding] = useState<boolean>(false);
+  const [errorMessage, setErrorMessage] = useState<string>(NO_RESULT);
   const [movieList, setMovieList] = useRecoilState(movieListState);
   const [pageNumber, setPageNumber] = useRecoilState(pageNumberState);
 
@@ -24,13 +27,21 @@ const SearchPage = () => {
   const currentSearch = searchParams.get('s');
 
   const getMovieList = useCallback(async () => {
-    if (!currentSearch) return;
+    if (!currentSearch) {
+      setErrorMessage(NO_SEARCH_WORD);
+      return;
+    }
 
+    setErrorMessage(NO_RESULT);
     setIsLoding(true);
     await getMovieListApi({ s: currentSearch, page: pageNumber })
       .then((res) => res.data)
       .then((data) => {
         if (data.Response === 'False') {
+          if (data.Error === 'Too many results.') {
+            setErrorMessage(TOO_MANY_RESULT);
+          }
+
           ref(null);
           return;
         }
@@ -57,13 +68,13 @@ const SearchPage = () => {
   return (
     <>
       <header className={styles.header}>
-        <div />
+        <div aria-label='hidden' />
         <div className={styles.searchForm}>
           <SearchForm />
         </div>
       </header>
       <section className={styles.searchList}>
-        {!movieList.length && !isLoading && <span className={styles.noResult}>{NO_RESULT}</span>}
+        {!movieList.length && !isLoading && <span className={styles.noResult}>{errorMessage}</span>}
         {movieList && (
           <ul>
             {movieList.map((movie, index) => {

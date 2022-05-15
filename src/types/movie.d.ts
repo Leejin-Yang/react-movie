@@ -10,4 +10,5 @@ export interface IMovieAPIRes {
   Search: IMovieList[];
   totalResults: string;
   Response: string;
+  Error?: string;
 }
