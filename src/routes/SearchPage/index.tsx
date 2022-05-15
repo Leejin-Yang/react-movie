@@ -14,6 +14,7 @@ import { movieListState, pageNumberState } from 'states/movie';
 const NO_RESULT = '검색 결과가 없습니다.';
 const NO_SEARCH_WORD = '검색어를 입력해주세요.';
 const TOO_MANY_RESULT = '검색 결과가 많습니다.';
+const NET_ERROR = '현재 검색이 불가능합니다.';
 
 const SearchPage = () => {
   const [isLoading, setIsLoding] = useState<boolean>(false);
@@ -47,6 +48,9 @@ const SearchPage = () => {
         }
 
         setMovieList((prev) => [...prev, ...data.Search]);
+      })
+      .catch(() => {
+        setErrorMessage(NET_ERROR);
       });
     setIsLoding(false);
   }, [currentSearch, pageNumber, ref, setMovieList]);
