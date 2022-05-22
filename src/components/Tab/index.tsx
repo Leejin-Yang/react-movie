@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom';
-import styles from './Tab.module.scss';
 import { cx } from 'styles';
+import styles from './Tab.module.scss';
 
 import { SearchIcon, FavoriteIcon } from 'assets/svgs';
 

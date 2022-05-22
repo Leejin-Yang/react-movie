@@ -9,8 +9,9 @@ interface Params {
 }
 
 export const getMovieListApi = (params: Params) =>
-  axios.get<IMovieAPIRes>(`${BASE_URL}?apikey=${process.env.REACT_APP_MOVIE_API_KEY}`, {
+  axios.get<IMovieAPIRes>(BASE_URL, {
     params: {
+      apikey: process.env.REACT_APP_MOVIE_API_KEY,
       ...params,
     },
   });

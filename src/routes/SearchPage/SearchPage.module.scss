@@ -38,12 +38,12 @@
       }
 
       &:focus::placeholder {
-        text-align: start;
+        text-align: left;
       }
     }
   }
 
-  @include responsive.after(responsive.getMinBreakpoint(SD)) {
+  @include responsive.after(SD) {
     .searchForm {
       width: 760px;
 
@@ -75,9 +75,5 @@
     border: 1px solid colors.$BORDER;
     border-radius: 10px;
     box-shadow: 0 6px 6px colors.$SHADOW;
-  }
-
-  & > div {
-    margin: 0 auto 10px;
   }
 }

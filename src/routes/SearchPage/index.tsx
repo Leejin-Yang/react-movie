@@ -26,12 +26,11 @@ const SearchPage = () => {
 
   const currentSearch = searchParams.get('s');
 
-  const getMovieList = useCallback(async () => {
+  const getMovieList = useCallback(() => {
     if (!currentSearch) return;
 
-    setErrorMessage(NO_RESULT);
     setIsLoding(true);
-    await getMovieListApi({ s: currentSearch, page: pageNumber })
+    getMovieListApi({ s: currentSearch, page: pageNumber })
       .then((res) => res.data)
       .then((data) => {
         if (data.Response === 'False') {
@@ -39,6 +38,7 @@ const SearchPage = () => {
             setErrorMessage(TOO_MANY_RESULT);
           }
 
+          setErrorMessage(NO_RESULT);
           ref(null);
           return;
         }
@@ -47,18 +47,16 @@ const SearchPage = () => {
       })
       .catch(() => {
         setErrorMessage(NET_ERROR);
-      });
-    setIsLoding(false);
+      })
+      .finally(() => setIsLoding(false));
   }, [currentSearch, pageNumber, ref, setMovieList]);
 
-  useMount(() => {
-    getMovieList();
-  });
+  useMount(getMovieList);
 
   useEffect(() => {
-    if (inView) {
-      setPageNumber((prev) => prev + 1);
-    }
+    if (!inView) return;
+
+    setPageNumber((prev) => prev + 1);
   }, [inView, setPageNumber]);
 
   useUpdateEffect(() => {
@@ -74,7 +72,6 @@ const SearchPage = () => {
         </div>
       </header>
       <section className={styles.searchList}>
-        {!movieList.length && !isLoading && <span className={styles.noResult}>{errorMessage}</span>}
         {movieList && (
           <ul>
             {movieList.map((movie, index) => {
@@ -89,7 +86,8 @@ const SearchPage = () => {
           </ul>
         )}
         {isLoading && <Spinner />}
-        {currentSearch && movieList.length !== 0 && <div ref={ref} />}
+        {!isLoading && movieList.length === 0 && <span className={styles.noResult}>{errorMessage}</span>}
+        {currentSearch && movieList.length > 0 && <div ref={ref} />}
       </section>
     </>
   );
